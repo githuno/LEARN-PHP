@@ -7,6 +7,8 @@ Route::get('/', function () {
 
 Route::post('/resume', 'App\Http\Controllers\ResumeController@store');
 
+Route::get('/resume/{id}', 'App\Http\Controllers\ResumeController@show');
+
 
 // CSRFトークンを含むクッキーを返すエンドポイントを追加
 Route::get('/csrf-cookie', function () {

@@ -36,12 +36,23 @@ class ResumeController extends Controller
         if (isset($data['experiences'])) {
             foreach ($data['experiences'] as $experienceData) {
                 $experience = new Experience($experienceData);
-				// $experience->save();
-				// $experience = Experience::create($experienceData);
                 $resume->experiences()->save($experience);
             }
         }
 
         return response()->json($resume, 201);
+
+    }
+
+	public function show($id)
+    {
+        // 指定されたIDに対応するレコードをデータベースから取得
+        $resume = Resume::with('experiences')->findOrFail($id);
+
+        // 取得したデータをエクセルライクな紙フォーマットに整形
+        $view = view('resume_format', ['resume' => $resume]);
+
+        // 整形したデータをレスポンスとして返す
+        return response($view);
     }
 }
