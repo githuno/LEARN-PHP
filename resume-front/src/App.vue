@@ -94,21 +94,21 @@ export default {
 	},
 	methods: {
 		async submitForm() {
-			try {
-				// POSTリクエストを送信
-				const response = await axios.post('https://sturdy-spork-p54pw4wvjgr397p9-8000.app.github.dev/resume', this.form, {
-				});
-				console.log(response.data);
+            try {
+                // POSTリクエストを送信
+                const response = await axios.post(process.env.VUE_APP_API_URL + '/resume', this.form, {
+                });
+                console.log(response.data);
 
-				// リクエストが成功した場合、showメソッドを待ち受けているエンドポイントへGETリクエストを送信
-				if (response.status === 201) {
-					const showUrl = 'https://sturdy-spork-p54pw4wvjgr397p9-8000.app.github.dev/resume/' + response.data.id;
-					window.location.href = showUrl;
-				}
-			} catch (error) {
-				console.error(error);
-			}
-		},
+                // リクエストが成功した場合、showメソッドを待ち受けているエンドポイントへGETリクエストを送信
+                if (response.status === 201) {
+                    const showUrl = process.env.VUE_APP_API_URL + '/resume/' + response.data.id;
+                    window.location.href = showUrl;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
 		addExperience() {
 			this.form.experiences.push({
 				date: '',
