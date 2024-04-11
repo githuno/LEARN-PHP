@@ -99,6 +99,12 @@ export default {
 				const response = await axios.post('https://sturdy-spork-p54pw4wvjgr397p9-8000.app.github.dev/resume', this.form, {
 				});
 				console.log(response.data);
+
+				// リクエストが成功した場合、showメソッドを待ち受けているエンドポイントへGETリクエストを送信
+				if (response.status === 201) {
+					const showUrl = 'https://sturdy-spork-p54pw4wvjgr397p9-8000.app.github.dev/resume/' + response.data.id;
+					window.location.href = showUrl;
+				}
 			} catch (error) {
 				console.error(error);
 			}
@@ -114,9 +120,9 @@ export default {
 		removeExperience(index) {
 			this.form.experiences.splice(index, 1);
 		},
-        updateExperience(index, updatedExperience) {
-            this.form.experiences[index] = updatedExperience;
-        },
+		updateExperience(index, updatedExperience) {
+			this.form.experiences[index] = updatedExperience;
+		},
 	}
 }
 </script>
